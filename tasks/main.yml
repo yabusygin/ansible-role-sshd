@@ -1,2 +1,25 @@
 ---
-# tasks file for sshd
+- name: install server packages
+  apt:
+    name:
+    - openssh-server
+    force_apt_get: yes
+    update_cache: yes
+
+- name: configure server
+  template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    mode: 0644
+    lstrip_blocks: yes
+  notify:
+  - reload server
+  tags:
+  - sshd
+  - config
+
+- name: start and enable server
+  systemd:
+    name: ssh.service
+    state: started
+    enabled: yes
