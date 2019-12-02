@@ -1,0 +1,80 @@
+# SSH transport
+
+ListenAddress 0.0.0.0:22
+ListenAddress [::]:22
+Protocol 2
+VersionAddendum none
+DebianBanner no
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+RekeyLimit 1G 1h
+ClientAliveInterval 1m
+ClientAliveCountMax 3
+
+# User authentication and authorization
+
+LoginGraceTime 60s
+MaxAuthTries 3
+MaxStartups 10:30:20
+StrictModes yes
+Banner none
+AuthenticationMethods publickey password
+PubkeyAuthentication yes
+AuthorizedKeysFile %h/.ssh/authorized_keys
+PasswordAuthentication yes
+PermitEmptyPasswords no
+HostbasedAuthentication no
+ChallengeResponseAuthentication no
+KbdInteractiveAuthentication no
+GSSAPIAuthentication no
+KerberosAuthentication no
+UsePAM yes
+PermitRootLogin no
+
+# SSH connection
+
+PermitTTY yes
+AcceptEnv LANG LC_*
+PrintLastLog no
+PrintMotd no
+PermitUserEnvironment no
+PermitUserRC yes
+X11Forwarding yes
+X11UseLocalhost yes
+AllowTcpForwarding no
+AllowStreamLocalForwarding no
+AllowAgentForwarding no
+PermitTunnel no
+Subsystem sftp internal-sftp
+
+# Logging
+
+LogLevel INFO
+SyslogFacility AUTH
+
+# Daemon
+
+PidFile none
+
+# TCP transport
+
+TCPKeepAlive no
+
+# Conditional blocks
+
+Match Address !192.168.0.10,!172.16.0.10 LocalAddress 10.0.0.10
+    DenyUsers admin1 admin2
+
+Match User admin*
+    X11Forwarding yes
+    PermitUserRC yes
+    ChrootDirectory none
+    ForceCommand none
+
+Match All
+    AllowGroups ssh-users
+    X11Forwarding no
+    PermitUserRC no
+    ChrootDirectory /share
+    ForceCommand internal-sftp
