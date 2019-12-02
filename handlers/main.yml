@@ -1,2 +1,5 @@
 ---
-# handlers file for sshd
+- name: reload server
+  systemd:
+    name: ssh.service
+    state: reloaded
