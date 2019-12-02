@@ -85,3 +85,10 @@ def test_sshd_config(host):
         """,
     )
     assert expect == actual
+
+
+def test_sshd_process(host):
+    """Test that sshd process exists."""
+    expect = "/usr/sbin/sshd -D"
+    actual = host.process.get(comm="sshd").args
+    assert expect == actual
