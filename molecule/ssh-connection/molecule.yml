@@ -6,8 +6,13 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: instance
-    image: centos:7
+  - name: server
+    image: "leandelivery/docker-systemd:ubuntu-18.04"
+    privileged: yes
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+  - name: client
+    image: "debian:10"
 provisioner:
   name: ansible
   lint:
