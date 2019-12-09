@@ -1,9 +1,18 @@
 ---
-# This is an example playbook to execute Ansible tests.
-
-- name: Verify
-  hosts: all
+- name: verify
+  hosts: client
   tasks:
-  - name: Example assertion
-    assert:
-      that: true
+    - name: perform SSH connection to server
+      expect:
+        command: ssh root@server
+        responses: {
+          "yes/no": "yes",
+          "password": "root-password"
+        }
+        timeout: 5
+      changed_when: false
+      register: result
+
+    - name: check that command prompt has appeared
+      assert:
+        that: "'root@server:~#' in result.stdout_lines[-1]"
