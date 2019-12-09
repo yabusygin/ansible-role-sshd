@@ -11,8 +11,12 @@ platforms:
     privileged: yes
     volumes:
       - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+    networks:
+      - name: test-sshd-role
   - name: client
     image: "debian:10"
+    networks:
+      - name: test-sshd-role
 provisioner:
   name: ansible
   lint:
