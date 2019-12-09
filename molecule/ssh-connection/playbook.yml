@@ -1,5 +1,46 @@
 ---
-- name: Converge
-  hosts: all
+- name: converge server
+  hosts: server
   roles:
     - role: sshd
+  tasks:
+    - name: set root password
+      user:
+        name: root
+        state: present
+        password: "{{ root_password }}"
+        update_password: always
+
+- name: converge client
+  hosts: client
+  tasks:
+    - name: install SSH client
+      apt:
+        name:
+          - openssh-client
+        state: present
+        force_apt_get: yes
+        update_cache: yes
+    - name: install pip module dependencies (Python 2)
+      apt:
+        name:
+        - python-pip
+        - python-setuptools
+        - python-virtualenv
+        force_apt_get: yes
+        update_cache: yes
+      when: ansible_facts.python.version.major == 2
+    - name: install pip module dependencies (Python 3)
+      apt:
+        name:
+        - python3-pip
+        - python3-setuptools
+        - python3-virtualenv
+        force_apt_get: yes
+        update_cache: yes
+      when: ansible_facts.python.version.major == 3
+    - name: install pexpect
+      pip:
+        name:
+        - pexpect
+        state: present
