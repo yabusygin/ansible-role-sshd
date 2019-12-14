@@ -1,0 +1,5 @@
+galaxy_info:
+  role_name: sshd
+  author: Alexey Busygin
+  description: An Ansible role configuring OpenSSH server.
+  license: MIT
