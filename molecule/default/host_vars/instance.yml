@@ -1,8 +1,7 @@
 ---
 ansible_become: yes
 
-sshd:
-  conditional_config:
-    - match: All
-      config:
-        PasswordAuthentication: "no"
+sshd_conditional_config:
+  - match: All
+    config:
+      PasswordAuthentication: "no"

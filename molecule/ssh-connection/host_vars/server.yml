@@ -1,10 +1,9 @@
 ---
 ansible_become: yes
 
-sshd:
-  conditional_config:
-    - match: All
-      config:
-        PermitRootLogin: "yes"
+sshd_conditional_config:
+  - match: All
+    config:
+      PermitRootLogin: "yes"
 
 root_password: "{{ 'root-password'|password_hash('sha512', 'RootSalt') }}"
