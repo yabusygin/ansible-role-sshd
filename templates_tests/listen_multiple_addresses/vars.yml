@@ -1,7 +1,4 @@
 ---
-sshd:
-  listen_address:
-    - host: 1.2.3.4
-      port: 22022
-    - host: "[::]"
-      port: 23022
+sshd_listen_address:
+  - "1.2.3.4:22022"
+  - "[::]:23022"
