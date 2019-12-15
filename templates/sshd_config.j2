@@ -1,16 +1,11 @@
 # SSH transport
 
-{% if sshd is defined and sshd.listen_address is defined %}
-    {% if sshd.listen_address is mapping %}
-ListenAddress {{ sshd.listen_address.host }}:{{ sshd.listen_address.port }}
-    {% else %}
-        {% for item in sshd.listen_address %}
-ListenAddress {{ item.host }}:{{ item.port }}
-        {% endfor %}
-    {% endif %}
+{% if sshd_listen_address is string %}
+ListenAddress {{ sshd_listen_address }}
 {% else %}
-ListenAddress 0.0.0.0:22
-ListenAddress [::]:22
+    {% for address in sshd_listen_address %}
+ListenAddress {{ address }}
+    {% endfor %}
 {% endif %}
 Protocol 2
 VersionAddendum none
@@ -70,10 +65,10 @@ PidFile none
 # TCP transport
 
 TCPKeepAlive no
-{% if sshd is defined and sshd.conditional_config is defined %}
+{% if sshd_conditional_config is defined %}
 
 # Conditional blocks
-    {% for block in sshd.conditional_config %}
+    {% for block in sshd_conditional_config %}
 
         {% if block.match == "All" %}
 Match All
