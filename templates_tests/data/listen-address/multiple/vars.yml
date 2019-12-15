@@ -1,7 +1,7 @@
 ---
 sshd:
   listen_address:
-  - host: 1.2.3.4
-    port: 22022
-  - host: "[::]"
-    port: 23022
+    - host: 1.2.3.4
+      port: 22022
+    - host: "[::]"
+      port: 23022

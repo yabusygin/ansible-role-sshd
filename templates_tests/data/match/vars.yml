@@ -1,24 +1,24 @@
 ---
 sshd:
   conditional_config:
-  - match:
-      Address: "!192.168.0.10,!172.16.0.10"
-      LocalAddress: 10.0.0.10
-    config:
-      DenyUsers: admin1 admin2
+    - match:
+        Address: "!192.168.0.10,!172.16.0.10"
+        LocalAddress: 10.0.0.10
+      config:
+        DenyUsers: admin1 admin2
 
-  - match:
-      User: admin*
-    config:
-      X11Forwarding: "yes"
-      PermitUserRC: "yes"
-      ChrootDirectory: none
-      ForceCommand: none
+    - match:
+        User: admin*
+      config:
+        X11Forwarding: "yes"
+        PermitUserRC: "yes"
+        ChrootDirectory: none
+        ForceCommand: none
 
-  - match: All
-    config:
-      AllowGroups: ssh-users
-      X11Forwarding: "no"
-      PermitUserRC: "no"
-      ChrootDirectory: /share
-      ForceCommand: internal-sftp
+    - match: All
+      config:
+        AllowGroups: ssh-users
+        X11Forwarding: "no"
+        PermitUserRC: "no"
+        ChrootDirectory: /share
+        ForceCommand: internal-sftp

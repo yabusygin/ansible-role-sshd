@@ -2,7 +2,7 @@
 - name: install server packages
   apt:
     name:
-    - openssh-server
+      - openssh-server
     force_apt_get: yes
     update_cache: yes
 
@@ -13,10 +13,10 @@
     mode: 0644
     lstrip_blocks: yes
   notify:
-  - reload server
+    - reload server
   tags:
-  - sshd
-  - config
+    - sshd
+    - config
 
 - name: start and enable server
   systemd:

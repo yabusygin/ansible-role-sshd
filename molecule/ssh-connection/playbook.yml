@@ -24,23 +24,23 @@
     - name: install pip module dependencies (Python 2)
       apt:
         name:
-        - python-pip
-        - python-setuptools
-        - python-virtualenv
+          - python-pip
+          - python-setuptools
+          - python-virtualenv
         force_apt_get: yes
         update_cache: yes
       when: ansible_facts.python.version.major == 2
     - name: install pip module dependencies (Python 3)
       apt:
         name:
-        - python3-pip
-        - python3-setuptools
-        - python3-virtualenv
+          - python3-pip
+          - python3-setuptools
+          - python3-virtualenv
         force_apt_get: yes
         update_cache: yes
       when: ansible_facts.python.version.major == 3
     - name: install pexpect
       pip:
         name:
-        - pexpect
+          - pexpect
         state: present
