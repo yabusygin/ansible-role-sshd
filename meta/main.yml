@@ -14,3 +14,9 @@ galaxy_info:
       versions:
         - bionic
         - xenial
+  galaxy_tags:
+    - system
+    - networking
+    - ssh
+    - sshd
+    - openssh
